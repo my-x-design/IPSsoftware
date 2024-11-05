@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="stars"></div> <!-- Star background -->
+    <div class="profile-container">
+        <header>
+            <h1>User Profile</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a> <!-- Link to Home -->
+                <a href="about.html" class="nav-link">About</a>
+                <a href="connect.html" class="nav-link">Connect Me</a>
+                <div id="profile-info" class="profile-info"></div> <!-- Profile section -->
+            </nav>
+        </header>
+        <section class="user-profile">
+            <h2>Your Profile</h2>
+            <div id="user-details" class="user-details">
+                <p>Loading user details...</p>
+            </div>
+            <button id="edit-profile-btn">Edit Profile</button>
+        </section>
+    </div>
+    <script>
+        // Display user profile information
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const loggedInUserEmail = sessionStorage.getItem('loggedInUserEmail');
+        const user = users.find(user => user.email === loggedInUserEmail);
+
+        if (user) {
+            document.getElementById('profile-info').innerHTML = `
+                <p>Welcome, ${user.username}!</p>
+            `;
+            document.getElementById('user-details').innerHTML = `
+                <p><strong>Username:</strong> ${user.username}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Bio:</strong> ${user.bio || 'No bio available.'}</p>
+            `;
+        } else {
+            window.location.href = 'login.html'; // Redirect to login if not logged in
+        }
+
+        // Edit profile functionality
+        document.getElementById('edit-profile-btn').addEventListener('click', function() {
+            const newUsername = prompt("Enter your new username:", user.username || "");
+            const newBio = prompt("Enter your new bio:", user.bio || "");
+            if (newUsername !== null) {
+                user.username = newUsername;
+            }
+            if (newBio !== null) {
+                user.bio = newBio;
+            }
+            localStorage.setItem('users', JSON.stringify(users));
+            document.getElementById('user-details').innerHTML = `
+                <p><strong>Username:</strong> ${user.username}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Bio:</strong> ${user.bio}</p>
+            `;
+        });
+    </script>
+</body>
+</html>

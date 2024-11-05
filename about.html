@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="stars"></div> <!-- Star background -->
+    <div class="about-container">
+        <header>
+            <h1>About Us</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="connect.html" class="nav-link">Connect Me</a>
+                <div id="profile-info" class="profile-info"></div> <!-- Profile section -->
+            </nav>
+        </header>
+        <section class="about-details">
+            <h2>Welcome to Inder's Software</h2>
+            <p>This software was developed with the goal of enhancing productivity and making task management simpler for everyone. Whether you're a student, a professional, or someone who just wants to stay organized, this suite has something to offer.</p>
+
+            <h3>About the Creator</h3>
+            <p>Inder, a passionate developer, believes in the power of technology to improve lives. With a background in computer science and experience in software development, Inder created this productivity suite to help users manage their time effectively.</p>
+
+            <h3>Our Mission</h3>
+            <p>We aim to provide tools that empower users to take control of their tasks, prioritize their goals, and achieve more in less time. Our mission is to make productivity accessible and achievable for everyone.</p>
+
+            <h3>Contact Us</h3>
+            <p>If you have any questions, feedback, or suggestions, feel free to reach out!</p>
+        </section>
+    </div>
+    <script>
+        // Display user profile information
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const loggedInUserEmail = sessionStorage.getItem('loggedInUserEmail');
+        const user = users.find(user => user.email === loggedInUserEmail);
+
+        if (user) {
+            document.getElementById('profile-info').innerHTML = `
+                <p>Welcome, ${user.username}!</p>
+            `;
+        } else {
+            window.location.href = 'login.html'; // Redirect to login if not logged in
+        }
+    </script>
+</body>
+</html>

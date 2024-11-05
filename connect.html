@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Me</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="stars"></div> <!-- Star background -->
+    <div class="connect-container">
+        <header>
+            <h1>Connect Me</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a> <!-- Link to Home -->
+                <a href="about.html" class="nav-link">About</a>
+                <div id="profile-info" class="profile-info"></div> <!-- Profile section -->
+            </nav>
+        </header>
+        <section class="connect-details">
+            <h2>Stay Connected</h2>
+            <p>Feel free to reach out through any of the platforms below:</p>
+            <ul>
+                <li>Email: <a href="mailto:example@example.com">example@example.com</a></li>
+                <li>Twitter: <a href="https://twitter.com/yourprofile" target="_blank">@yourprofile</a></li>
+                <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">Your Profile</a></li>
+            </ul>
+            <h3>Feedback</h3>
+            <p>Your feedback is important to us! Let us know your thoughts on our software.</p>
+        </section>
+        
+        <!-- User Profile Section -->
+        <section class="user-profile">
+            <h3>Your Profile</h3>
+            <div id="user-details" class="user-details">
+                <p>Loading user details...</p>
+            </div>
+            <button id="edit-profile-btn">Edit Profile</button>
+        </section>
+    </div>
+    <script>
+        // Display user profile information
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const loggedInUserEmail = sessionStorage.getItem('loggedInUserEmail');
+        const user = users.find(user => user.email === loggedInUserEmail);
+
+        if (user) {
+            document.getElementById('profile-info').innerHTML = `
+                <p>Welcome, ${user.username}!</p>
+            `;
+            document.getElementById('user-details').innerHTML = `
+                <p><strong>Username:</strong> ${user.username}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Bio:</strong> ${user.bio || 'No bio available.'}</p>
+            `;
+        } else {
+            window.location.href = 'login.html'; // Redirect to login if not logged in
+        }
+
+        // Edit profile functionality
+        document.getElementById('edit-profile-btn').addEventListener('click', function() {
+            const newBio = prompt("Enter your new bio:", user.bio || "");
+            if (newBio !== null) {
+                user.bio = newBio;
+                localStorage.setItem('users', JSON.stringify(users));
+                document.getElementById('user-details').innerHTML = `
+                    <p><strong>Username:</strong> ${user.username}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Bio:</strong> ${user.bio}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

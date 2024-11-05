@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="stars"></div> <!-- Star background -->
+    <div class="index-container">
+        <header>
+            <h1>Home Page</h1>
+            <nav>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="connect.html" class="nav-link">Connect Me</a>
+                <div id="profile-info" class="profile-info"></div> <!-- Profile section -->
+            </nav>
+        </header>
+        <h2>Welcome to the Home Page</h2>
+        <p>About this software: Our software is designed to enhance your productivity and streamline your tasks.</p>
+        
+        <section class="software-details">
+            <h3>Software Created by Inder</h3>
+            <p><strong>Name:</strong> Inder’s Productivity Suite</p>
+            <p><strong>Description:</strong> This software aims to assist users in managing their daily tasks efficiently. It integrates various features that promote organization, time management, and productivity.</p>
+            <h4>Features:</h4>
+            <ul>
+                <li>Task Management: Create, edit, and delete tasks easily.</li>
+                <li>Reminders: Set reminders to never miss a deadline.</li>
+                <li>User-Friendly Interface: Designed for seamless navigation.</li>
+                <li>Data Security: All user data is encrypted for security.</li>
+                <li>Responsive Design: Works flawlessly on various devices.</li>
+            </ul>
+            <h4>Benefits:</h4>
+            <ul>
+                <li>Increases productivity by keeping tasks organized.</li>
+                <li>Helps prioritize tasks based on deadlines.</li>
+                <li>Improves time management skills.</li>
+                <li>Enhances focus by minimizing distractions.</li>
+            </ul>
+            <p>Experience the power of efficient task management with Inder’s Productivity Suite!</p>
+        </section>
+    </div>
+    <script>
+        // Display user profile information
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const loggedInUserEmail = sessionStorage.getItem('loggedInUserEmail');
+        const user = users.find(user => user.email === loggedInUserEmail);
+
+        if (user) {
+            document.getElementById('profile-info').innerHTML = `
+                <p>Welcome, ${user.username}!</p>
+            `;
+        } else {
+            window.location.href = 'login.html'; // Redirect to login if not logged in
+        }
+    </script>
+</body>
+</html>
